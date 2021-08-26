@@ -20,3 +20,5 @@ else:
 let var_x = 1 * 2 % 3 + 40 / 2 + 5 // 2;  # Test various operators.
 let i10 = True or False and not True;
 None;
+'test'
+"test"
