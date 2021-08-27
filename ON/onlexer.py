@@ -132,8 +132,7 @@ class Lexer:
         while self.ch in {'\n', ' ', '\t', '\r'}:
             self.__read_next_char()
 
-        # TODO: Strip comments out of the lexer
-        while self.ch == '#':
+        while self.ch == '#': # Until we reach an actual line, not a comment
             while self.ch != '\n':
                 self.__read_next_char()
             self.__read_next_char()
