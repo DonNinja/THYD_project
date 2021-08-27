@@ -15,10 +15,10 @@ elif ( i == 10 or i>=20 and i<=100 and i != 25 ) {
     None;
     break;
 }
-else:
+else
     let x = 2;
 let var_x = 1 * 2 % 3 + 40 / 2 + 5 // 2;  # Test various operators.
 let i10 = True or False and not True;
 None;
-'test'
-"test"
+'test
+"test
