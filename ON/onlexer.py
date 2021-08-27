@@ -132,6 +132,12 @@ class Lexer:
         while self.ch in {'\n', ' ', '\t', '\r'}:
             self.__read_next_char()
 
+        # TODO: Strip comments out of the lexer
+        while self.ch == '#':
+            while self.ch != '\n':
+                self.__read_next_char()
+            self.__read_next_char()
+
         # Record the start location of the lexeme we're matching.
         loc = Location(self.line, self.col)
 
@@ -156,7 +162,7 @@ class Lexer:
             self.__read_next_char()
         elif self.ch == '*':
             token_tuple = TokenTuple(Token.OpMultiply, '*', loc)
-            self.__read_next_char()  
+            self.__read_next_char()
         elif self.ch == '<':
             self.__read_next_char()
             if self.ch == '=':
