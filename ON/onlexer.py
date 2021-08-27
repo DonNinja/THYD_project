@@ -76,9 +76,6 @@ class LexerError(Exception):
 class Lexer:
 
     __keywords = {
-        "while": Token.KwWhile,
-        "if": Token.KwIf,
-        "not": Token.OpNot,
         "let": Token.KwLet,
         "pass": Token.KwPass,
         "break": Token.KwBreak,
@@ -187,8 +184,6 @@ class Lexer:
         else:
             if self.ch.isalpha() or self.ch == '_':
                 # Match an identifier.
-                # IDENTIFIER is a token consisting of one or more alphanumeric and understore characters;
-                # an identifier is not allowed to start with a digit. (e.g., name_10_beers).
 
                 chars = [self.ch]
                 self.__read_next_char()
@@ -204,11 +199,7 @@ class Lexer:
                     chars.append(self.ch)
                     self.__read_next_char()
                 token_tuple = TokenTuple(Token.Number, ''.join(chars), loc)
-                #STRING is a string-literal, starting and ending with a pair of either single (') or double ('')
-                #quotes, e.g. 'A string', ''Another string'', 'A string with '' in it.' , ''A string with 2 ' and ' in it.'').
-                #Strings are not allowed to span over lines and do not (yet) support escaping characters.
-            
-                
+                # Match a string
             elif self.ch == "'":
                 chars = [self.ch]
                 self.__read_next_char()
@@ -236,6 +227,7 @@ class Lexer:
                 token_tuple = TokenTuple(Token.String, ''.join(chars), loc)
                 self.__read_next_char()
             else:
+                # Match punctuation
                 token_tuple = TokenTuple(self.__punct_marks.get(self.ch, Token.Unknown), self.ch, loc)
                 self.__read_next_char()
         return token_tuple
