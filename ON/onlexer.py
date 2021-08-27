@@ -179,6 +179,11 @@ class Lexer:
             self.__read_next_char()
             if self.ch == '=':
                 token_tuple = TokenTuple(Token.OpNotEq, '!=', loc)
+        elif self.ch == '#': # Skip the line and move to next
+            curr_l = self.line
+            while self.line == curr_l:
+                self.__read_next_char()
+            token_tuple = TokenTuple(Token.Unknown, '', loc)
         else:
             if self.ch.isalpha() or self.ch == '_':
                 # Match an identifier.
@@ -211,7 +216,7 @@ class Lexer:
                 while self.ch != "'":
                     chars.append(self.ch)
                     self.__read_next_char()
-                    if self.ch == '':
+                    if self.ch in {'\n', ''}:
                         raise LexerError("String is not terminated at", loc)
                 
                 chars.append(self.ch)
@@ -224,7 +229,7 @@ class Lexer:
                 while self.ch != '"':
                     chars.append(self.ch)
                     self.__read_next_char()
-                    if self.ch == '':
+                    if self.ch in {'\n', ''}:
                         raise LexerError("String is not terminated at", loc)
 
                 chars.append(self.ch)
