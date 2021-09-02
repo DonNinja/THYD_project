@@ -75,8 +75,8 @@ class PrintVisitor(visitor.Visitor):
     def _(self, node: ast.OperatorExprNode):
         self.print(f'op = {node.token}')
         self.indent += 1
-        self.do_visit(node.rhs)
         self.do_visit(node.lhs)
+        self.do_visit(node.rhs)
         self.indent -= 1
 
     @visit.register

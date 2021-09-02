@@ -4,7 +4,7 @@
 from onparser import Parser, ParserSyntaxError
 import print_visitor
 
-with open('test.on') as f:
+with open('test01.on') as f:
     """
     lexer = onlexer.Lexer(f)
     token_tuple = lexer.next()

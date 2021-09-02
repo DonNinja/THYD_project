@@ -1,6 +1,9 @@
 #
 # Test program.
-#
+
+# Another comment.
+
+
 let sum = 0;
 let i = 0;
 while ( i < 100 ) {
@@ -12,13 +15,19 @@ while ( i < 100 ) {
 if (sum > 500 and sum < 1000)
     let x = 1;
 elif ( i == 10 or i>=20 and i<=100 and i != 25 ) {
-    None;
+    let N = None;
     break;
 }
-else
+elif ( sum > 0 ) {
+    let N = None;
+    break;
+}
+else {
     let x = 2;
+}
 let var_x = 1 * 2 % 3 + 40 / 2 + 5 // 2;  # Test various operators.
 let i10 = True or False and not True;
-None;
-'test'
-"test"
+let s1 = "..'..";
+let s2 = '..."..';
+let b = not not True;
+let i = + - + - 2;
