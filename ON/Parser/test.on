@@ -1,0 +1,24 @@
+#
+# Test program.
+#
+let sum = 0;
+let i = 0;
+while ( i < 100 ) {
+    let sum = sum + i;
+    let i = i + 1;
+    pass;
+    continue;
+}
+if (sum > 500 and sum < 1000)
+    let x = 1;
+elif ( i == 10 or i>=20 and i<=100 and i != 25 ) {
+    None;
+    break;
+}
+else
+    let x = 2;
+let var_x = 1 * 2 % 3 + 40 / 2 + 5 // 2;  # Test various operators.
+let i10 = True or False and not True;
+None;
+'test'
+"test"
