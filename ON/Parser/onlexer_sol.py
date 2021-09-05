@@ -142,7 +142,7 @@ class Lexer:
                 token_tuple = TokenTuple(Token.OpLtEq, '<=', loc)
                 self.__read_next_char()
             else:
-                token_tuple = TokenTuple(Token.OpGt, '<', loc)
+                token_tuple = TokenTuple(Token.OpLt, '<', loc)
         elif self.ch == '>':
             self.__read_next_char()
             if self.ch == '=':

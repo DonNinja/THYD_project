@@ -47,17 +47,19 @@ class Parser:
         return stmt
 
     def simple_stmt(self):
+        # TODO: Add missing returns ...
         if self.match_if(Token.KwLet):
             return self.assign_stmt()
         elif self.match_if(Token.KwPass):
-            return ast.PassStmtNode()
+            return None
         elif self.match_if(Token.KwBreak):
-            return ast.BreakStmtNode()
+            return None
         elif self.match_if(Token.KwContinue):
-            return ast.ContinueStmtNode()
+            return None
         return None
 
     def compound_stmt(self):
+        # TODO: Add missing returns ...
         if self.token_tuple.token == Token.KwIf:
             return self.if_stmt()
         elif self.token_tuple.token == Token.KwWhile:
@@ -88,20 +90,22 @@ class Parser:
         return ast.IfStmtNode(expr_block_list)
 
     def while_stmt(self):
+        # TODO: Add missing returns ...
+        # expr_block_list = []
         self.match(Token.KwWhile)
         self.match(Token.ParenthesisL)
-        expr = self.expression()
+        self.expression()
         self.match(Token.ParenthesisR)
-        block = self.block()
-
-        return ast.WhileStmtNode(expr, block)
+        self.block()
+        
+        return None
 
     def assign_stmt(self):
-        name = self.token_tuple.lexeme
+        # TODO: Add missing returns ...
         self.match(Token.Identifier)
         self.match(Token.OpAssign)
-        expr = self.expression()
-        return ast.AssignStmtNode(ast.VariableLValueNode(name), expr)
+        self.expression()
+        return None
 
     def block(self):
         statements = []
@@ -116,36 +120,35 @@ class Parser:
         return ast.BlockStmtNode(statements)
 
     def expression(self):
-        return self.or_expression()
-        # return ast.OperatorExprNode(Token.OpOr, or_expr)
+        # TODO: Add missing returns ...
+        self.or_expression()
+        return None
 
     def or_expression(self):
-        expr = self.and_expression()
-        while self.token_tuple.token == Token.OpOr:
-            token = self.token_tuple.token
-            self.match(Token.OpOr)
-            rhs = self.and_expression()
-            expr = ast.OperatorExprNode(token, expr, rhs)
-        return expr
+        # TODO: Add missing returns ...
+        self.and_expression()
+        while self.match_if(Token.OpOr):
+            self.and_expression()
+        return None
 
     def and_expression(self):
-        expr = self.not_expression()
-        while self.token_tuple.token == Token.OpAnd:
-            token = self.token_tuple.token
-            self.match(Token.OpAnd)
-            rhs = self.not_expression()
-            expr = ast.OperatorExprNode(token, expr, rhs)
-        return expr
+        # TODO: Add missing returns ...
+        self.not_expression()
+        while self.match_if(Token.OpAnd):
+            self.not_expression()
+        return None
 
     def not_expression(self):
+        # TODO: Add missing returns ...
         if self.match_if(Token.OpNot):
-            return self.not_expression()
+            self.not_expression()
         else:
-            return self.comparison()
+            self.comparison()
+        return None
 
     def comparison(self):
         expr = self.arithmetic_expr()
-        if self.token_tuple.token in {Token.OpLt, Token.OpGt, Token.OpEq, Token.OpGtEq, Token.OpLtEq, Token.OpNotEq}:
+        if self.token_tuple.token in {Token.OpLt, Token.OpGt,Token.OpEq, Token.OpGtEq, Token.OpLtEq, Token.OpNotEq}:
             token = self.token_tuple.token
             self.match(self.token_tuple.token)
             rhs = self.arithmetic_expr()
@@ -153,31 +156,26 @@ class Parser:
         return expr
 
     def arithmetic_expr(self):
-        expr = self.term()
-        while self.token_tuple.token in {Token.OpPlus, Token.OpMinus}:
-            token = self.token_tuple.token
-            self.match(token)
-            rhs = self.term()
-            expr = ast.OperatorExprNode(token, expr, rhs)
-        return expr
+        # TODO: Add missing returns ...
+        self.term()
+        while self.match_if(Token.OpPlus) or self.match_if(Token.OpMinus):
+            self.term()
+        return None
 
     def term(self):
-        expr = self.factor()
-        while self.token_tuple.token in {Token.OpMultiply, Token.OpDivide, Token.OpModulus, Token.OpIntDivide}:
-            token = self.token_tuple.token
-            self.match(token)
-            rhs = self.factor()
-            expr = ast.OperatorExprNode(token, expr, rhs)
-        return expr
+        # TODO: Add missing returns ...
+        self.factor()
+        while self.match_if(Token.OpMultiply) or self.match_if(Token.OpDivide) or self.match_if(Token.OpModulus) or self.match_if(Token.OpIntDivide):
+            self.factor()
+        return None
 
     def factor(self):
-        if self.token_tuple.token in {Token.OpPlus, Token.OpMinus}:
-            token = self.token_tuple.token
-            self.match(token)
-            expr = self.factor()
-            return ast.OperatorExprNode(token, expr)
+        # TODO: Add missing returns ...
+        if self.match_if(Token.OpPlus) or self.match_if(Token.OpMinus):
+            self.factor()
         else:
-            return self.atom()
+            self.atom()    
+        return None
 
     def atom(self):
         if self.match_if(Token.ParenthesisL):
